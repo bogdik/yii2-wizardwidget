@@ -24,6 +24,21 @@ class WizardWidget extends Widget {
 	 */
 	public $id = 'wizard';
 
+    /**
+     * @var boolean Skip init Next Button
+     */
+    public $noInitNext = false;
+
+    /**
+     * @var boolean Skip init Prev Button
+     */
+    public $noInitPrev = false;
+
+    /**
+     * @var boolean Skip init Save Button
+     */
+    public $noInitSave = false;
+
 	/**
 	 * @var array default button configuration
 	 */
@@ -54,6 +69,26 @@ class WizardWidget extends Widget {
 	 */
 	public function run() {
 		parent::run();
+        if($this->noInitNext){
+            $next="true";
+        } else {
+            $next="false";
+        }
+        if($this->noInitPrev){
+            $prev="true";
+        } else {
+            $prev="false";
+        }
+        if($this->noInitSave){
+            $save="true";
+        } else {
+            $save="false";
+        }
+        $this->getView()->registerJs("
+        noInitNext=$next;
+        noInitPrev=$prev;
+        noInitSave=$save;
+        ",View::POS_BEGIN);
 		WizardWidgetAsset::register($this->getView());
 
 

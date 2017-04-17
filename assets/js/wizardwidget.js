@@ -10,52 +10,58 @@ $(document).ready(function () {
             return false;
         }
     });
+    if(!noInitNext) {
+        // Manage next step button click
+        $(document).on("click", ".next-step", function (e) {
+            var $tab_active = $('.wizard .nav-tabs li.active');
+            var $next_tab = $tab_active.next();
+            var $function = jQuery(this).data('function') || false;
 
-    // Manage next step button click
-    $(document).on("click", ".next-step", function (e) {
-        var $tab_active = $('.wizard .nav-tabs li.active');
-        var $next_tab = $tab_active.next();
-        var $function = jQuery(this).data('function') || false;
+            if ($function) {
+                var callback = function () {
+                    $next_tab.removeClass('disabled');
+                    nextTab($tab_active);
+                };
 
-        if ($function){
-            var callback = function(){
+                // Execute data item 'function' on click
+                eval($function);
+            } else {
                 $next_tab.removeClass('disabled');
                 nextTab($tab_active);
-            };
+            }
+        });
+    }
+    if(!noInitPrev) {
+        // Manage previous step button click
+        $(document).on("click", ".prev-step", function (e) {
+            var $tab_active = $('.wizard .nav-tabs li.active');
+            var $function = jQuery(this).data('function') || false;
 
-            // Execute data item 'function' on click
-            eval($function);
-        } else {
-            $next_tab.removeClass('disabled');
-            nextTab($tab_active);
-        }
-    });
+            if ($function) {
+                var callback = function () {
+                    prevTab($tab_active);
+                };
 
-    // Manage previous step button click
-    $(document).on("click", ".prev-step", function (e) {
-        var $tab_active = $('.wizard .nav-tabs li.active');
-        var $function = jQuery(this).data('function') || false;
-
-        if ($function){
-            var callback = function(){
+                // Execute data item 'function' on click
+                eval($function);
+            } else {
                 prevTab($tab_active);
-            };
-
+            }
+        });
+    }
+    if(!noInitSave) {
+        // Manage save step button click
+        $(document).on("click", ".save-step", function (e) {
+            var $function = jQuery(this).data('function') || false;
             // Execute data item 'function' on click
-            eval($function);
-        } else {
-            prevTab($tab_active);
-        }
-    });
-
-    // Manage save step button click
-    $(document).on("click", ".save-step", function (e) {
-        var $function = jQuery(this).data('function') || false;
-        // Execute data item 'function' on click
-        if ($function){
-            eval($function);
-        }
-    });
+            if ($function) {
+                eval($function);
+            }
+        });
+    }
+    delete noInitNext;
+    delete noInitPrev;
+    delete noInitSave;
 });
 
 // 'click' on next tab
