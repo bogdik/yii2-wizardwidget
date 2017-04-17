@@ -27,6 +27,9 @@ Wizard configuration
 --------------------
 
 -  `id`: *string* html id of the wizard widget
+-  `noInitNext`: *boolean* disable event next button
+-  `noInitPrev`: *boolean* disable event prev button
+-  `noInitSave`: *boolean* disable event save button
 -  `steps`: *array* definition of the wizard steps. Array key will be used as the hyperlinks to the steps. 
 
 Each step can have the following parameters:
