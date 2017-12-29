@@ -96,9 +96,9 @@
 .wizard .nav-tabs > li a {
     width: 70px;
     height: 70px;
-    margin: 20px auto;
+    margin: 20px auto !important;
     border-radius: 100%;
-    padding: 0;
+    padding: 0 !important;
 }
 
 .wizard .nav-tabs > li a:hover {
